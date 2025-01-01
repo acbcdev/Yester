@@ -10,7 +10,7 @@ import { Progress } from '@/components/ui/progress';
 import { generatePassword, calculatePasswordStrength } from '@/lib/utils/password';
 import { Copy, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-
+import { useDebounce } from '@uidotdev/usehooks';
 interface PasswordGeneratorProps {
   onPasswordGenerated: (password: string) => void;
 }
@@ -28,12 +28,14 @@ export function PasswordGenerator({ onPasswordGenerated }: PasswordGeneratorProp
     wordCount: 5,
     capitalizeWords: true,
   });
+  const debounceValues = useDebounce(options, 200);
   const [generatedPassword, setGeneratedPassword] = useState('');
   const [strength, setStrength] = useState(0);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     handleGenerate();
-  }, []);
+  }, [debounceValues]);
 
   const handleGenerate = () => {
     const password = generatePassword(options);
@@ -97,11 +99,9 @@ export function PasswordGenerator({ onPasswordGenerated }: PasswordGeneratorProp
               value={options.separator}
               onChange={(e) => {
                 const value = e.target.value.trim();
-                if (value === '') return;
                 setOptions(prev => ({ ...prev, separator: value }));
-                handleGenerate();
               }}
-              placeholder="Ingresa un separador (ej: -, _, @, #)"
+              placeholder="Ingresa un separador (ej: -, _, @, #) default -"
               maxLength={1}
             />
           </div>
