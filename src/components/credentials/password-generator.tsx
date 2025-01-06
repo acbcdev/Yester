@@ -11,11 +11,9 @@ import { generatePassword, calculatePasswordStrength } from '@/lib/utils/passwor
 import { Copy, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useDebounce } from '@uidotdev/usehooks';
-interface PasswordGeneratorProps {
-  onPasswordGenerated: (password: string) => void;
-}
 
-export function PasswordGenerator({ onPasswordGenerated }: PasswordGeneratorProps) {
+
+export function PasswordGenerator() {
   const { toast } = useToast();
   const [options, setOptions] = useState({
     mode: 'words' as 'characters' | 'words',
@@ -41,7 +39,10 @@ export function PasswordGenerator({ onPasswordGenerated }: PasswordGeneratorProp
     const password = generatePassword(options);
     setGeneratedPassword(password);
     setStrength(calculatePasswordStrength(password));
-    onPasswordGenerated(password);
+    toast({
+      title: 'Contraseña Generada',
+      description: 'Nueva contraseña generada',
+    })
   };
 
   const copyToClipboard = () => {

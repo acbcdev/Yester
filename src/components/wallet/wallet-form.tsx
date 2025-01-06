@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Currency, SUPPORTED_CURRENCIES } from '@/lib/types/currency';
-import { Wallet } from '@/lib/types/wallet';
+import type { Wallet } from '@/lib/types/wallet';
 import {
   Form,
   FormControl,
@@ -28,7 +28,7 @@ import { formatNumber } from '@/lib/utils/number';
 const formSchema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
   balance: z.string().refine(
-    (val) => !isNaN(Number(val)) && Number(val) >= 0,
+    (val) => !Number.isNaN(Number(val)) && Number(val) >= 0,
     { message: 'Debe ser un número válido y positivo' }
   ),
   currency: z.string().min(1, 'La moneda es requerida'),

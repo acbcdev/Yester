@@ -3,20 +3,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CredentialsList } from '@/components/credentials/credentials-list';
 import { PasswordGenerator } from '@/components/credentials/password-generator';
-import { useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
 
 export default function CredentialsPage() {
-  const { toast } = useToast();
-  const [generatedPassword, setGeneratedPassword] = useState('');
-
-  const handlePasswordGenerated = (password: string) => {
-    setGeneratedPassword(password);
-    toast({
-      title: 'Contraseña generada',
-      description: 'Nueva contraseña generada exitosamente',
-    });
-  };
 
   return (
     <div className="h-full">
@@ -39,7 +27,7 @@ export default function CredentialsPage() {
           </TabsContent>
           <TabsContent value="generator">
             <div className="max-w-xl mx-auto">
-              <PasswordGenerator onPasswordGenerated={handlePasswordGenerated} />
+              <PasswordGenerator />
             </div>
           </TabsContent>
         </Tabs>

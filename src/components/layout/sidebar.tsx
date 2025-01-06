@@ -2,46 +2,46 @@
 
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Wallet, ArrowLeftRight, LineChart, Settings, History, KeyRound, FileText } from 'lucide-react';
+import { Wallet, LineChart, Settings, KeyRound } from 'lucide-react';
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { usePathname } from 'next/navigation';
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> { }
+const routes = [
+  {
+    label: 'Dashboard',
+    icon: LineChart,
+    href: '/',
+    color: 'text-emerald-500 dark:text-emerald-400',
+    bgColor: 'bg-emerald-500/10 dark:bg-emerald-400/10',
+  },
+  {
+    label: 'Carteras',
+    icon: Wallet,
+    href: '/expenses',
+    color: 'text-blue-500 dark:text-blue-400',
+    bgColor: 'bg-blue-500/10 dark:bg-blue-400/10',
+  },
+  {
+    label: 'Claves',
+    icon: KeyRound,
+    href: '/credentials',
+    color: 'text-violet-500 dark:text-violet-400',
+    bgColor: 'bg-violet-500/10 dark:bg-violet-400/10',
+  },
+  {
+    label: 'Configuración',
+    icon: Settings,
+    href: '/settings',
+    color: 'text-rose-500 dark:text-rose-400',
+    bgColor: 'bg-rose-500/10 dark:bg-rose-400/10',
+  },
+];
 
 export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
 
-  const routes = [
-    {
-      label: 'Dashboard',
-      icon: LineChart,
-      href: '/',
-      color: 'text-emerald-500 dark:text-emerald-400',
-      bgColor: 'bg-emerald-500/10 dark:bg-emerald-400/10',
-    },
-    {
-      label: 'Carteras',
-      icon: Wallet,
-      href: '/expenses',
-      color: 'text-blue-500 dark:text-blue-400',
-      bgColor: 'bg-blue-500/10 dark:bg-blue-400/10',
-    },
-    {
-      label: 'Claves',
-      icon: KeyRound,
-      href: '/credentials',
-      color: 'text-violet-500 dark:text-violet-400',
-      bgColor: 'bg-violet-500/10 dark:bg-violet-400/10',
-    },
-    {
-      label: 'Configuración',
-      icon: Settings,
-      href: '/settings',
-      color: 'text-rose-500 dark:text-rose-400',
-      bgColor: 'bg-rose-500/10 dark:bg-rose-400/10',
-    },
-  ];
 
   return (
     <div className={cn(
